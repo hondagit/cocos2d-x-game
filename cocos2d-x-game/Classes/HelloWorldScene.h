@@ -14,6 +14,7 @@ public:
     
     // a selector callback
     void menuCloseCallback(CCObject* pSender);
+    void menuBackCallback(CCObject* pSender);
 
     // implement the "static node()" method manually
     LAYER_CREATE_FUNC(HelloWorld);

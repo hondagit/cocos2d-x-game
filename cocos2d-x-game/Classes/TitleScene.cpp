@@ -73,5 +73,5 @@ bool Title::init()
 
 void Title::menuChangeScene(CCObject *pSender)
 {
-    CCDirector::sharedDirector()->replaceScene( HelloWorld::scene());
+    CCDirector::sharedDirector()->pushScene(HelloWorld::scene());
 }

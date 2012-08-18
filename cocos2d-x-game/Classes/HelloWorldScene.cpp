@@ -41,9 +41,17 @@ bool HelloWorld::init()
                                         menu_selector(HelloWorld::menuCloseCallback) );
     pCloseItem->setPosition( ccp(CCDirector::sharedDirector()->getWinSize().width - 20, 20) );
 
+    CCMenuItemImage *pBackItem = CCMenuItemImage::create(
+                                                          "CloseNormal.png",
+                                                          "CloseSelected.png",
+                                                          this,
+                                                          menu_selector(HelloWorld::menuBackCallback) );
+    pBackItem->setPosition( ccp(CCDirector::sharedDirector()->getWinSize().width - 20, 60) );
+    
     // create menu, it's an autorelease object
     CCMenu* pMenu = CCMenu::create(pCloseItem, NULL);
     pMenu->setPosition( CCPointZero );
+    pMenu->addChild(pBackItem);
     this->addChild(pMenu, 1);
 
     /////////////////////////////
@@ -81,4 +89,9 @@ void HelloWorld::menuCloseCallback(CCObject* pSender)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     exit(0);
 #endif
+}
+
+void HelloWorld::menuBackCallback(CCObject* pSender)
+{
+    CCDirector::sharedDirector()->popScene();
 }
