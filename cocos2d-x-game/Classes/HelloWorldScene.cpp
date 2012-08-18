@@ -64,12 +64,15 @@ bool HelloWorld::init()
 
     // add "HelloWorld" splash screen"
     CCSprite* pSprite = CCSprite::create("HelloWorld.png");
+    this->mSprite = pSprite;
 
     // position the sprite on the center of the screen
     pSprite->setPosition( ccp(size.width/2, size.height/2) );
 
     // add the sprite as a child to this layer
     this->addChild(pSprite, 0);
+    
+    this->schedule( schedule_selector(HelloWorld::gameLogic), 1.0 / 60.0 );
     
     return true;
 }
@@ -81,4 +84,21 @@ void HelloWorld::menuCloseCallback(CCObject* pSender)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     exit(0);
 #endif
+}
+
+void HelloWorld::gameLogic()
+{
+    float x = 0;
+    CCSize size = CCDirector::sharedDirector()->getWinSize();
+    const float PI = 3.1415f;
+    int max_loop_count = 60 * 1;
+    float cos_value = cosf(PI * ((float)this->mLoopCount++ / (float)max_loop_count));
+    x = (float)size.width * cos_value;
+    
+    if( this->mLoopCount > (max_loop_count * 2) )
+    {
+        this->mLoopCount = 0;
+    }
+    
+    this->mSprite->setPosition( ccp( x + size.width / 2, size.height / 2) );
 }
