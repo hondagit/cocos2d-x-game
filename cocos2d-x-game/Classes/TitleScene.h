@@ -13,6 +13,9 @@
 
 class Title : public cocos2d::CCLayer
 {
+private:
+    cocos2d::CCSprite *mSprite;
+    
 public:
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();
@@ -25,6 +28,10 @@ public:
     
     // implement the "static node()" method manually
     LAYER_CREATE_FUNC(Title);
+    
+    void registerWithTouchDispatcher();
+    bool ccTouchBegan( cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent );
+    void ccTouchEnded( cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent );
 };
 
 #endif /* defined(__cocos2d_x_game__TitleScene__) */

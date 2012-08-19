@@ -61,6 +61,7 @@ bool Title::init()
     
     // add "HelloWorld" splash screen"
     CCSprite* pSprite = CCSprite::create("title_back.png");
+    this->mSprite = pSprite;
     
     // position the sprite on the center of the screen
     pSprite->setPosition( ccp(size.width/2, size.height/2) );
@@ -68,10 +69,31 @@ bool Title::init()
     // add the sprite as a child to this layer
     this->addChild(pSprite, 0);
     
+    // enable touch event
+    this->setTouchEnabled(true);
+    
     return true;
 }
 
 void Title::menuChangeScene(CCObject *pSender)
 {
     CCDirector::sharedDirector()->pushScene(HelloWorld::scene());
+}
+
+void Title::registerWithTouchDispatcher()
+{
+    //CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this,-129,true);
+    CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this,-127,true);
+}
+
+bool Title::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
+{
+    this->mSprite->initWithFile("background_touch_began.png");
+    
+    return true;
+}
+
+void Title::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
+{
+    this->mSprite->initWithFile("background_touch_began.png");
 }
